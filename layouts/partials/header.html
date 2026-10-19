@@ -1,0 +1,15 @@
+<header class="shell bar">
+  <a class="wm" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+  {{ if ne .Kind "404" }}
+  {{ with partial "sections.html" . }}
+  <nav aria-label="Main">
+    <ul class="nav">
+      {{ range . }}
+      {{ $current := or (eq $.RelPermalink .page.RelPermalink) (and (ne .name "about") (eq $.Section .name)) }}
+      <li><a class="{{ .element }}" href="{{ .page.RelPermalink }}"{{ if $current }} aria-current="page"{{ end }}>{{ .label }}</a></li>
+      {{ end }}
+    </ul>
+  </nav>
+  {{ end }}
+  {{ end }}
+</header>

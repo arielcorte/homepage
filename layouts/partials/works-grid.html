@@ -1,0 +1,23 @@
+{{/* Args: pages, heading ("h2"/"h3"), class. Each work is numbered in the order it was made. */}}
+{{ $all := (where site.RegularPages "Section" "works").ByDate }}
+<ul class="series{{ with .class }} {{ . }}{{ end }}">
+  {{ range .pages }}
+  {{ $page := . }}
+  {{ $no := 0 }}
+  {{ range $i, $p := $all }}{{ if eq $p $page }}{{ $no = add $i 1 }}{{ end }}{{ end }}
+  <li class="piece">
+    <a href="{{ with .Params.link }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">
+      <div class="plate art">
+        {{ with .Params.image }}
+          <img src="{{ . | relURL }}" alt="" loading="lazy">
+        {{ else }}
+          {{ partial (printf "prints/%s.html" (.Params.print | default "window")) (dict "id" $no) }}
+        {{ end }}
+        <span class="no">No. {{ $no }}</span>
+      </div>
+      {{ if eq $.heading "h3" }}<h3>{{ .Title }}</h3>{{ else }}<h2>{{ .Title }}</h2>{{ end }}
+      {{ with .Params.summary }}<small>{{ . }}</small>{{ end }}
+    </a>
+  </li>
+  {{ end }}
+</ul>

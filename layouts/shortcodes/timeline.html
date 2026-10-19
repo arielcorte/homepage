@@ -1,0 +1,14 @@
+{{/* Career timeline from the page's `timeline` front matter: when, where, line (markdown). */}}
+{{ with .Page.Params.timeline }}
+<ol class="timeline">
+  {{ range . }}
+  <li>
+    <span class="when{{ if not .when }} todo{{ end }}">{{ .when | default "Year?" }}</span>
+    <div>
+      <b class="where">{{ .where }}</b>
+      {{ with .line }}<span class="line">{{ . | markdownify }}</span>{{ else }}<span class="line todo">One line about this.</span>{{ end }}
+    </div>
+  </li>
+  {{ end }}
+</ol>
+{{ end }}

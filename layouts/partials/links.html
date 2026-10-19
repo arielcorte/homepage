@@ -1,0 +1,3 @@
+{{/* Elsewhere links: site.Params.links plus an optional email. */}}
+{{ range site.Params.links }}<a href="{{ .url }}">{{ .name }}</a>{{ end }}
+{{ with site.Params.email }}<a href="mailto:{{ . }}">Email</a>{{ end }}

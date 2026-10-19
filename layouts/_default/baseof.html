@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ $title := .Title }}
+  {{ if .IsSection }}{{ with where (partial "sections.html" .) "name" .Section }}{{ $title = (index . 0).label }}{{ end }}{{ end }}
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ $title }}, {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+  <meta name="theme-color" content="#F2EADB">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Zen+Antique&display=swap">
+  {{/* Only the few CJK characters the site uses, to keep the download tiny. */}}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&text={{ "作品筆記完日誌關於" | urlquery }}&display=swap">
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+  <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+  {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}
+</head>
+<body>
+  <div class="pg">
+    {{/* Washi paper texture; the wood filter is reused by every woodblock print on the page. */}}
+    <svg class="washi" aria-hidden="true">
+      <filter id="mottle"><feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="3" seed="8"/><feColorMatrix type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.45  0 0 0 0 0.30  -1.6 0 0 0 0.95"/></filter>
+      <filter id="fine"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="1" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 0.3  0 0 0 0 0.25  0 0 0 0 0.2  0 0 0 0.05 0"/></filter>
+      <filter id="wood" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.0025 0.07" numOctaves="3" seed="3"/><feColorMatrix type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0.9 -0.32"/></filter>
+      <rect width="100%" height="100%" filter="url(#mottle)" opacity="0.12"/>
+      <rect width="100%" height="100%" filter="url(#fine)"/>
+    </svg>
+    {{ partial "header.html" . }}
+    <main class="shell">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "footer.html" . }}
+  </div>
+</body>
+</html>

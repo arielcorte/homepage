@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{ partial "band.html" (dict "scene" "about" "kick" (.Params.kicker | default "The long version") "title" .Title "cjk" "關於") }}
+<div class="aboutpage">
+  {{ partial "bench.html" . }}
+  <article class="story">
+    {{ .Content }}
+    <p class="elsewhere"><span>Elsewhere</span>{{ partial "links.html" . }}</p>
+  </article>
+  {{/* Side box from the `seeking` front matter: label + text (markdown). */}}
+  {{ with .Params.seeking }}
+  <aside class="seeking">
+    <p class="kick">{{ .label | default "Open to work" }}</p>
+    {{ with .text }}{{ . | markdownify | safeHTML }}{{ else }}<p class="todo">Add seeking.text in about.md.</p>{{ end }}
+    {{ with site.Params.email }}<a class="write" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+  </aside>
+  {{ end }}
+</div>
+{{ end }}

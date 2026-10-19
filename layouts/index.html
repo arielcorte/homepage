@@ -1,0 +1,51 @@
+{{ define "main" }}
+{{ $avatar := site.Params.avatar }}
+{{ partial "band.html" (dict "scene" "home" "kick" site.Params.tagline "title" site.Title) }}
+
+<section class="about">
+  <div class="portrait">
+    {{ if and $avatar (fileExists (printf "static/%s" $avatar)) }}
+      <img src="{{ $avatar | relURL }}" alt="{{ site.Params.author }}" width="512" height="512">
+    {{ end }}
+  </div>
+  <div class="intro">
+    {{ if trim (plainify .Content) " \n" }}
+      {{ .Content }}
+    {{ else if hugo.IsServer }}
+      <p class="todo">Your intro goes here. Write it in <code>content/_index.md</code>. (Only visible while running <code>hugo server</code>.)</p>
+    {{ end }}
+  </div>
+  <dl class="colophon">
+    {{ range site.Params.colophon }}<dt>{{ .term }}</dt><dd>{{ .value }}</dd>{{ end }}
+    <dt>Elsewhere</dt><dd>{{ partial "links.html" . }}</dd>
+  </dl>
+</section>
+
+{{ partial "contributions.html" . }}
+
+{{ range partial "sections.html" . }}
+  {{ if eq .name "posts" }}
+  <section class="sec" aria-labelledby="home-writing">
+    <div class="sechead">
+      <h2 id="home-writing">{{ .label }}</h2>
+      <span class="cjk" lang="zh-Hant" aria-hidden="true">{{ .cjk }}</span>
+      <a class="{{ .element }}" href="{{ .page.RelPermalink }}">{{ .more }}</a>
+    </div>
+    {{ partial "post-list.html" (dict "pages" (first 5 (where site.RegularPages "Section" "posts")) "format" "Jan 2, 2006") }}
+  </section>
+  {{ end }}
+{{ end }}
+
+{{ range partial "sections.html" . }}
+  {{ if eq .name "works" }}
+  <section class="sec" aria-labelledby="home-works">
+    <div class="sechead">
+      <h2 id="home-works">{{ .label }}</h2>
+      <span class="cjk" lang="zh-Hant" aria-hidden="true">{{ .cjk }}</span>
+      <a class="{{ .element }}" href="{{ .page.RelPermalink }}">{{ .more }}</a>
+    </div>
+    {{ partial "works-grid.html" (dict "pages" (first 3 (where site.RegularPages "Section" "works")).Reverse "heading" "h3" "class" "compact") }}
+  </section>
+  {{ end }}
+{{ end }}
+{{ end }}

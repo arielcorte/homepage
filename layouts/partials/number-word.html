@@ -1,0 +1,4 @@
+{{/* 1 → "One", … 12 → "Twelve"; larger numbers stay digits. */}}
+{{ $words := slice "Zero" "One" "Two" "Three" "Four" "Five" "Six" "Seven" "Eight" "Nine" "Ten" "Eleven" "Twelve" }}
+{{ $n := int . }}
+{{ return cond (lt $n (len $words)) (index $words $n) (string $n) }}

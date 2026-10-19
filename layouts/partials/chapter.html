@@ -1,0 +1,9 @@
+{{/* "Book Two, Chapter One": book = year (oldest is One), chapter = order within that year. */}}
+{{ $posts := (where site.RegularPages "Section" "posts").ByDate }}
+{{ $years := slice }}
+{{ range $posts }}{{ if not (in $years .Date.Year) }}{{ $years = $years | append .Date.Year }}{{ end }}{{ end }}
+{{ $book := 0 }}
+{{ range $i, $y := $years }}{{ if eq $y $.Date.Year }}{{ $book = add $i 1 }}{{ end }}{{ end }}
+{{ $chapter := 0 }}
+{{ range $posts }}{{ if eq .Date.Year $.Date.Year }}{{ $chapter = add $chapter 1 }}{{ if eq . $ }}{{ break }}{{ end }}{{ end }}{{ end }}
+{{ return printf "Book %s, Chapter %s" (partial "number-word.html" $book) (partial "number-word.html" $chapter) }}

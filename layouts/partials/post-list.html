@@ -1,0 +1,6 @@
+{{/* Args: pages, format (date layout). */}}
+<ol class="posts">
+  {{ range .pages }}
+  <li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $.format }}</time><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ol>

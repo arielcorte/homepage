@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="plate lost">
+  {{ partial "scenes/lost.html" . }}
+  <div class="cart">
+    <p class="kick">No. 404</p>
+    <h1>This print was never carved.</h1>
+    <p class="msg">The page you're looking for isn't here. It may have moved, or the block is still on the bench.</p>
+    <a class="home" href="{{ "/" | relURL }}">Return to the first print</a>
+  </div>
+</div>
+{{ end }}

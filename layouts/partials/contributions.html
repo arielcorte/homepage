@@ -1,0 +1,50 @@
+{{/* GitHub contribution graph, fetched at build time. Renders nothing if the fetch fails. */}}
+{{ with site.Params.github }}
+{{ $user := . }}
+{{ with resources.GetRemote (printf "https://github-contributions-api.jogruber.de/v4/%s?y=last" $user) }}
+{{ with .Err }}
+  {{ warnf "contributions: %s" . }}
+{{ else }}
+{{ $data := .Content | transform.Unmarshal }}
+{{ $days := $data.contributions }}
+{{ if $days }}
+{{ $colors := slice "#E9DFC9" "#C9D1B0" "#9DB08A" "#6F8A63" "#34503F" }}
+{{ $weekday := dict "Sunday" 0 "Monday" 1 "Tuesday" 2 "Wednesday" 3 "Thursday" 4 "Friday" 5 "Saturday" 6 }}
+{{ $off := index $weekday ((time (index $days 0).date).Format "Monday") }}
+{{ $cols := div (add (len $days) $off 6) 7 }}
+{{ $total := $data.total.lastYear }}
+<section class="sec" aria-labelledby="gh">
+  <div class="sechead">
+    <h2 id="gh">The year in commits</h2>
+    <span class="cjk" lang="zh-Hant" aria-hidden="true">日誌</span>
+    <a class="earth" href="https://github.com/{{ $user }}">On GitHub</a>
+  </div>
+  <figure class="contrib">
+    <div class="gwrap">
+      <svg viewBox="0 0 {{ add 30 (mul $cols 12) }} 102" role="img" aria-label="GitHub contribution graph: {{ $total }} contributions in the last year">
+        <g font-family="Zen Antique, serif" font-size="9" fill="#4F4740">
+          {{ range $i, $d := $days }}
+            {{ $t := time $d.date }}
+            {{ $col := div (add $i $off) 7 }}
+            {{ if and (eq $t.Day 1) (ge $col 1) (lt $col (sub $cols 2)) }}<text x="{{ add 30 (mul $col 12) }}" y="11">{{ $t.Format "Jan" }}</text>{{ end }}
+          {{ end }}
+          <text x="0" y="39">Mon</text><text x="0" y="63">Wed</text><text x="0" y="87">Fri</text>
+        </g>
+        {{ range $i, $d := $days }}
+          {{ $n := add $i $off }}
+          <rect x="{{ add 30 (mul (div $n 7) 12) }}" y="{{ add 18 (mul (mod $n 7) 12) }}" width="10" height="10" rx="1.5" fill="{{ index $colors (int $d.level) }}"><title>{{ $d.count }} on {{ (time $d.date).Format "Jan 2" }}</title></rect>
+        {{ end }}
+      </svg>
+    </div>
+    <figcaption>
+      <span><b>{{ $total }}</b> contributions in the last year</span>
+      <span class="legend" aria-hidden="true">Less {{ range $colors }}<i style="background:{{ . | safeCSS }}"></i>{{ end }} More</span>
+    </figcaption>
+  </figure>
+</section>
+{{ end }}
+{{ end }}
+{{ else }}
+  {{ warnf "contributions: could not fetch graph for %s" $user }}
+{{ end }}
+{{ end }}

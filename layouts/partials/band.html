@@ -1,0 +1,9 @@
+{{/* Woodblock banner. Args: scene, kick, title, cjk, heading ("h1" by default), class. */}}
+<div class="plate band{{ with .class }} {{ . }}{{ end }}">
+  {{ partial (printf "scenes/%s.html" .scene) . }}
+  <div class="cart">
+    {{ with .kick }}<span class="kick">{{ . }}</span>{{ end }}
+    <h1>{{ .title }}</h1>
+    {{ with .cjk }}<span class="cjk" lang="zh-Hant" aria-hidden="true">{{ . }}</span>{{ end }}
+  </div>
+</div>
