@@ -1,5 +1,6 @@
 <header class="shell bar">
-  <a class="wm" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+  {{/* On the home page the banner already shows the name, so the wordmark steps aside. */}}
+  {{ if .IsHome }}<span></span>{{ else }}<a class="wm" href="{{ "/" | relURL }}">{{ site.Title }}</a>{{ end }}
   {{ if ne .Kind "404" }}
   {{ with partial "sections.html" . }}
   <nav aria-label="Main">

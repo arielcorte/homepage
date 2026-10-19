@@ -33,5 +33,25 @@
     </main>
     {{ partial "footer.html" . }}
   </div>
+  {{/* Copy buttons (the email in the links). Falls back to execCommand where the Clipboard API isn't available. */}}
+  <script>
+    document.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.copy');
+      if (!btn) return;
+      const text = btn.dataset.copy;
+      let ok = false;
+      try { await navigator.clipboard.writeText(text); ok = true; } catch {
+        const t = Object.assign(document.createElement('textarea'), { value: text });
+        t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.append(t); t.select();
+        ok = document.execCommand('copy'); t.remove();
+      }
+      const out = btn.querySelector('.done');
+      out.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      btn.classList.add('is-done');
+      clearTimeout(btn._t);
+      btn._t = setTimeout(() => { out.textContent = ''; btn.classList.remove('is-done'); }, 1600);
+    });
+  </script>
 </body>
 </html>

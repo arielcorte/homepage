@@ -90,7 +90,7 @@ main.shell { flex: 1 0 auto; }
 /* Home */
 .about { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "photo" "intro" "colo"; gap: 2rem; padding-top: 2.75rem; }
 @media (min-width: 56rem) {
-  .about { grid-template-columns: 14rem minmax(0, 40rem); grid-template-areas: "photo intro" "colo intro"; gap: 2rem 4rem; }
+  .about { grid-template-columns: 14rem minmax(0, 40rem); grid-template-rows: auto 1fr; grid-template-areas: "photo intro" "colo intro"; gap: 2rem 4rem; }
 }
 .portrait {
   grid-area: photo;
@@ -105,14 +105,14 @@ main.shell { flex: 1 0 auto; }
 @media (min-width: 56rem) { .portrait { width: 12rem; } }
 .portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .intro { grid-area: intro; }
-.intro p { margin: 0 0 1.05rem; }
-.intro > p:first-child { font-size: 1.5rem; line-height: 1.4; }
+.intro p { margin: 0 0 1.5rem; font-size: 1.2rem; line-height: 1.8; text-wrap: pretty; }
+.intro > p:first-child { margin-bottom: 1.75rem; font-family: var(--display); font-size: clamp(1.9rem, 4.6vw, 2.7rem); line-height: 1.2; text-wrap: balance; }
 .intro a, .blurb a { text-decoration-color: var(--air); text-decoration-thickness: 2px; text-underline-offset: .22em; }
 .colophon {
   grid-area: colo;
   margin: 0;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: .2rem 1.1rem;
   align-content: start;
   font-size: 1.02rem;
@@ -128,6 +128,44 @@ main.shell { flex: 1 0 auto; }
   text-decoration-color: var(--air);
   text-decoration-thickness: 3px;
   text-underline-offset: .24em;
+}
+/* Email address with a copy button that shows on hover (always shown on touch screens). */
+.email { display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap; }
+.colophon .email a, .elsewhere .email a { margin-right: 0; }
+.copy {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  background: var(--paper-light);
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s ease, background .15s ease;
+}
+.email:hover .copy, .email:focus-within .copy, .copy.is-done { opacity: 1; }
+.copy:hover { background: var(--cart); }
+.copy:focus-visible { outline: 3px solid var(--water); outline-offset: 2px; }
+@media (hover: none) { .copy { opacity: 1; } }
+.copy svg { width: 1rem; height: 1rem; }
+.copy .done:empty { display: none; }
+.copy .done {
+  position: absolute;
+  bottom: calc(100% + .4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: .2rem .5rem;
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--paper-light);
+  font-family: var(--display);
+  font-size: .75rem;
+  letter-spacing: .06em;
+  white-space: nowrap;
 }
 .todo { padding: .8rem 1rem; border: 1.5px dashed var(--fire); font-size: 1rem !important; }
 
@@ -218,7 +256,7 @@ main.shell { flex: 1 0 auto; }
   border-top: 1.5px solid var(--ink);
   font-size: 1.18rem;
 }
-.elsewhere span { font-family: var(--display); font-size: .82rem; letter-spacing: .14em; color: var(--ink-soft); }
+.elsewhere .label { font-family: var(--display); font-size: .82rem; letter-spacing: .14em; color: var(--ink-soft); }
 .story .elsewhere a { margin-right: 0; padding: .5rem 0; text-decoration-thickness: 3px; text-underline-offset: .24em; }
 
 /* Bold reads as a brush of air-nation ochre under the words. */
@@ -248,7 +286,11 @@ main.shell { flex: 1 0 auto; }
 .seeking .kick::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; background: var(--earth); box-shadow: 0 0 0 1.5px var(--ink); }
 .seeking p { margin: 0 0 1.1rem; text-wrap: pretty; }
 .seeking strong { font-weight: 600; }
-.seeking .write { display: inline-block; padding: .4rem 0; overflow-wrap: anywhere; text-decoration-color: var(--fire); text-decoration-thickness: 3px; text-underline-offset: .26em; }
+.seeking .write { display: block; width: fit-content; margin-top: .9rem; padding: .4rem 0; overflow-wrap: anywhere; text-decoration-color: var(--fire); text-decoration-thickness: 3px; text-underline-offset: .26em; }
+.longer { margin-top: .5rem !important; }
+.longer a { display: inline-block; padding: .4rem 0; font-family: var(--display); font-size: 1.05rem; letter-spacing: .04em; text-decoration-color: var(--air); text-decoration-thickness: 3px; text-underline-offset: .3em; }
+.longer a::after { content: "→"; display: inline-block; margin-left: .45rem; font-family: 'Newsreader', Georgia, serif; transition: transform .2s ease; }
+.longer a:hover::after { transform: translateX(3px); }
 
 /* Workbench behind the About page (partials/bench.html): wood grain plus tools in the margins. */
 .aboutpage { position: relative; }

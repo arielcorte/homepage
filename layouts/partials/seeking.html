@@ -1,0 +1,9 @@
+{{/* "Now" box on the About page. Its text lives in the `seeking` front matter of about.md; the home page
+     shows the same text as plain prose. Arg: an extra class, or "". */}}
+{{ with site.GetPage "/about" }}{{ with .Params.seeking }}
+<aside class="seeking{{ with $ }} {{ . }}{{ end }}">
+  <p class="kick">{{ .label | default "Now" }}</p>
+  {{ with .text }}{{ . | markdownify | safeHTML }}{{ else }}<p class="todo">Add seeking.text in about.md.</p>{{ end }}
+  {{ with site.Params.email }}<a class="write" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
+</aside>
+{{ end }}{{ end }}

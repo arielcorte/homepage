@@ -14,6 +14,9 @@
     {{ else if hugo.IsServer }}
       <p class="todo">Your intro goes here. Write it in <code>content/_index.md</code>. (Only visible while running <code>hugo server</code>.)</p>
     {{ end }}
+    {{/* Same text as the About page's "Now" box (seeking.text in about.md), but as plain prose here. */}}
+    {{ with site.GetPage "/about" }}{{ with .Params.seeking.text }}<p class="now">{{ . | markdownify }}</p>{{ end }}{{ end }}
+    {{ with site.GetPage "/about" }}<p class="longer"><a href="{{ .RelPermalink }}">Read the long version</a></p>{{ end }}
   </div>
   <dl class="colophon">
     {{ range site.Params.colophon }}<dt>{{ .term }}</dt><dd>{{ .value }}</dd>{{ end }}

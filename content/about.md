@@ -20,7 +20,7 @@ timeline:
 
 # Box in the right margin (below the story on phones). Your closing paragraph.
 seeking:
-  label: "Open to work"
+  label: "Now"
   text: "I'm currently looking to join a team where I can contribute with my **software and management skills**. If the product is hardware related it's extra points, but I care about building a product that people or companies use."
 ---
 
