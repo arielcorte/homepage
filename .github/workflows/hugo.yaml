@@ -6,6 +6,10 @@ on:
     branches:
       - main
 
+  # Rebuild daily so the GitHub contribution graph on the home page stays current
+  schedule:
+    - cron: "0 9 * * *"
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
