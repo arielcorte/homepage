@@ -18,8 +18,9 @@ timeline:
     where: "Robotic Crew"
     line: "I led the new projects that arrived, from the discovery meeting with the client until forming the team schedule of **12 people**. Also I was in charge of building demos and gathering data for future planning."
 
-# Box in the right margin (below the story on phones). Your closing paragraph.
+# "Now" box in the right margin (below the story on phones). Set show: false to hide it.
 seeking:
+  show: true
   label: "Now"
   text: "I'm currently looking to join a team where I can contribute with my **software and management skills**. If the product is hardware related it's extra points, but I care about building a product that people or companies use."
 ---

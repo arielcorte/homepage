@@ -287,7 +287,7 @@ main.shell { flex: 1 0 auto; }
 .seeking p { margin: 0 0 1.1rem; text-wrap: pretty; }
 .seeking strong { font-weight: 600; }
 .seeking .write { display: block; width: fit-content; margin-top: .9rem; padding: .4rem 0; overflow-wrap: anywhere; text-decoration-color: var(--fire); text-decoration-thickness: 3px; text-underline-offset: .26em; }
-.longer { margin-top: .5rem !important; }
+.longer { margin-top: 2rem !important; }
 .longer a { display: inline-block; padding: .4rem 0; font-family: var(--display); font-size: 1.05rem; letter-spacing: .04em; text-decoration-color: var(--air); text-decoration-thickness: 3px; text-underline-offset: .3em; }
 .longer a::after { content: "→"; display: inline-block; margin-left: .45rem; font-family: 'Newsreader', Georgia, serif; transition: transform .2s ease; }
 .longer a:hover::after { transform: translateX(3px); }
