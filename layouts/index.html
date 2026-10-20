@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ $avatar := site.Params.avatar }}
-{{ partial "band.html" (dict "scene" "home" "kick" site.Params.tagline "title" site.Title) }}
+{{ partial "band.html" (dict "scene" "home" "title" site.Title) }}
 
 <section class="about">
   <div class="portrait">
@@ -20,16 +20,14 @@
     {{ range site.Params.colophon }}<dt>{{ .term }}</dt><dd>{{ .value }}</dd>{{ end }}
     <dt>Elsewhere</dt><dd>{{ partial "links.html" . }}</dd>
   </dl>
+  {{ partial "contributions.html" . }}
 </section>
-
-{{ partial "contributions.html" . }}
 
 {{ range partial "sections.html" . }}
   {{ if eq .name "posts" }}
   <section class="sec" aria-labelledby="home-writing">
     <div class="sechead">
       <h2 id="home-writing">{{ .label }}</h2>
-      <span class="cjk" lang="zh-Hant" aria-hidden="true">{{ .cjk }}</span>
       <a class="{{ .element }}" href="{{ .page.RelPermalink }}">{{ .more }}</a>
     </div>
     {{ partial "post-list.html" (dict "pages" (first 5 (where site.RegularPages "Section" "posts")) "format" "Jan 2, 2006") }}
@@ -42,7 +40,6 @@
   <section class="sec" aria-labelledby="home-works">
     <div class="sechead">
       <h2 id="home-works">{{ .label }}</h2>
-      <span class="cjk" lang="zh-Hant" aria-hidden="true">{{ .cjk }}</span>
       <a class="{{ .element }}" href="{{ .page.RelPermalink }}">{{ .more }}</a>
     </div>
     {{ partial "works-grid.html" (dict "pages" (first 3 (where site.RegularPages "Section" "works")).Reverse "heading" "h3" "class" "compact") }}

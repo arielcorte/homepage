@@ -1,4 +1,4 @@
-{{/* GitHub contribution graph, fetched at build time. Renders nothing if the fetch fails. */}}
+{{/* GitHub contribution graph, fetched at build time. Sits next to the links on the home page; renders nothing if the fetch fails. */}}
 {{ with site.Params.github }}
 {{ $user := . }}
 {{ with resources.GetRemote (printf "https://github-contributions-api.jogruber.de/v4/%s?y=last" $user) }}
@@ -13,16 +13,10 @@
 {{ $off := index $weekday ((time (index $days 0).date).Format "Monday") }}
 {{ $cols := div (add (len $days) $off 6) 7 }}
 {{ $total := $data.total.lastYear }}
-<section class="sec" aria-labelledby="gh">
-  <div class="sechead">
-    <h2 id="gh">The year in commits</h2>
-    <span class="cjk" lang="zh-Hant" aria-hidden="true">日誌</span>
-    <a class="earth" href="https://github.com/{{ $user }}">On GitHub</a>
-  </div>
-  <figure class="contrib">
+<figure class="contrib">
     <div class="gwrap">
       <svg viewBox="0 0 {{ add 30 (mul $cols 12) }} 102" role="img" aria-label="GitHub contribution graph: {{ $total }} contributions in the last year">
-        <g font-family="Zen Antique, serif" font-size="9" fill="#4F4740">
+        <g font-family="Vollkorn, serif" font-size="9" fill="#4F4740">
           {{ range $i, $d := $days }}
             {{ $t := time $d.date }}
             {{ $col := div (add $i $off) 7 }}
@@ -41,7 +35,6 @@
       <span class="legend" aria-hidden="true">Less {{ range $colors }}<i style="background:{{ . | safeCSS }}"></i>{{ end }} More</span>
     </figcaption>
   </figure>
-</section>
 {{ end }}
 {{ end }}
 {{ else }}

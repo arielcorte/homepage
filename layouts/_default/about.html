@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{ partial "band.html" (dict "scene" "about" "kick" (.Params.kicker | default "The long version") "title" .Title "cjk" "關於") }}
+{{ partial "band.html" (dict "scene" "about" "title" .Title) }}
 <div class="aboutpage">
   {{ partial "bench.html" . }}
   <article class="story">

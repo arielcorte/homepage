@@ -8,13 +8,11 @@ disableKinds = ["taxonomy", "term"]
 [params]
   description = "Ariel Corte"
   author = "Ariel Corte"
-  # Optional small line above your name on the home banner. Left out: no role titles.
-  # tagline = ""
   # Square photo under static/.
   avatar = "avatar.jpg"
   # GitHub username for the "year in commits" graph. Remove to hide it.
   github = "arielcorte"
-  # Optional line under the 完 seal at the end of each post.
+  # Optional line at the end of each post.
   # signoff = ""
   # Optional; adds an Email link next to GitHub and X.
   email = "ariel@arielcorte.com"

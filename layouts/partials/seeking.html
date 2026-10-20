@@ -2,7 +2,7 @@
      Only shown when seeking.show is true. Arg: an extra class, or "". */}}
 {{ with site.GetPage "/about" }}{{ with .Params.seeking }}{{ if .show }}
 <aside class="seeking{{ with $ }} {{ . }}{{ end }}">
-  <p class="kick">{{ .label | default "Now" }}</p>
+  {{ with .label }}<p class="label">{{ . }}</p>{{ end }}
   {{ with .text }}{{ . | markdownify | safeHTML }}{{ else }}<p class="todo">Add seeking.text in about.md.</p>{{ end }}
   {{ with site.Params.email }}<a class="write" href="mailto:{{ . }}">{{ . }}</a>{{ end }}
 </aside>

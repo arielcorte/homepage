@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ $meta := dict }}
 {{ with where (partial "sections.html" .) "name" "works" }}{{ $meta = index . 0 }}{{ end }}
-{{ partial "band.html" (dict "scene" "works" "kick" ($meta.kick | default "") "title" ($meta.label | default .Title) "cjk" ($meta.cjk | default "")) }}
+{{ partial "band.html" (dict "scene" "works" "title" ($meta.label | default .Title)) }}
 {{ with .Content }}<div class="blurb">{{ . }}</div>{{ end }}
 {{ partial "works-grid.html" (dict "pages" .Pages.ByDate "heading" "h2") }}
 {{ end }}

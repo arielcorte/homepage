@@ -15,21 +15,13 @@
 <div class="plate strip">{{ partial "scenes/strip.html" . }}</div>
 <article class="post">
   {{ if ne $list site.Home }}<a class="back" href="{{ $list.RelPermalink }}">← All {{ $label }}</a>{{ end }}
-  {{ if eq $section "posts" }}
-    <p class="chlabel">{{ partial "chapter.html" . }}</p>
-  {{ else if eq $section "works" }}
-    {{ range $i, $p := $siblings }}{{ if eq $p $ }}<p class="chlabel">No. {{ add $i 1 }}</p>{{ end }}{{ end }}
-  {{ end }}
   <h1>{{ .Title }}</h1>
   <p class="meta">
     <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
     {{ if eq $section "posts" }}· {{ if le .ReadingTime 1 }}About a minute to read{{ else }}About {{ lower (partial "number-word.html" .ReadingTime) }} minutes to read{{ end }}{{ end }}
   </p>
   <div class="prose">{{ .Content }}</div>
-  <div class="end">
-    <span class="fin" lang="zh-Hant" aria-hidden="true">完</span>
-    {{ with site.Params.signoff }}<p class="signoff">{{ . }}</p>{{ end }}
-  </div>
+  {{ with site.Params.signoff }}<p class="signoff">{{ . }}</p>{{ end }}
   {{ if ne $list site.Home }}
   <nav class="pager" aria-label="More {{ $label }}">
     {{ with $prev }}<a href="{{ .RelPermalink }}"><small>Previous</small>{{ .Title }}</a>{{ else }}<span></span>{{ end }}

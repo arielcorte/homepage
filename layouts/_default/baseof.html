@@ -10,9 +10,7 @@
   <meta name="theme-color" content="#F2EADB">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Zen+Antique&display=swap">
-  {{/* Only the few CJK characters the site uses, to keep the download tiny. */}}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&text={{ "作品筆記完日誌關於" | urlquery }}&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Vollkorn:ital,wght@0,400;0,600;0,700;1,400&display=swap">
   <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
   <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
   {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">{{ end }}

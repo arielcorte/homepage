@@ -4,8 +4,8 @@
   {{ $items = $items | append (dict "name" "about" "label" "About" "element" "air" "page" .) }}
 {{ end }}
 {{ range slice
-  (dict "name" "works" "label" "Works" "element" "earth" "kick" "A series of prints" "cjk" "作品" "more" "The whole series")
-  (dict "name" "posts" "label" "Writing" "element" "water" "kick" "Notes from the bench" "cjk" "筆記" "more" "All writing") }}
+  (dict "name" "works" "label" "Works" "element" "earth" "more" "The whole series")
+  (dict "name" "posts" "label" "Writing" "element" "water" "more" "All writing") }}
   {{ if where site.RegularPages "Section" .name }}
     {{ $items = $items | append (merge . (dict "page" (site.GetPage (printf "/%s" .name)))) }}
   {{ end }}

@@ -1,13 +1,12 @@
 {{ define "main" }}
 {{ $meta := dict }}
 {{ with where (partial "sections.html" .) "name" "posts" }}{{ $meta = index . 0 }}{{ end }}
-{{ partial "band.html" (dict "scene" "writing" "kick" ($meta.kick | default "") "title" ($meta.label | default .Title) "cjk" ($meta.cjk | default "") "class" "top") }}
+{{ partial "band.html" (dict "scene" "writing" "title" ($meta.label | default .Title) "class" "top") }}
 {{ with .Content }}<div class="blurb">{{ . }}</div>{{ end }}
 {{ $groups := .Pages.GroupByDate "2006" }}
-{{ range $i, $g := $groups }}
+{{ range $groups }}
 <section class="year" aria-labelledby="y{{ .Key }}">
   <div class="yhead">
-    <small>Book {{ partial "number-word.html" (sub (len $groups) $i) }}</small>
     <h2 id="y{{ .Key }}">{{ .Key }}</h2>
   </div>
   {{ partial "post-list.html" (dict "pages" .Pages "format" "Jan 2") }}
