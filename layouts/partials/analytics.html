@@ -1,0 +1,20 @@
+{{/* GoatCounter visit counts, production builds only. No cookies. Tagged links (?ref=acme) show up as the referrer.
+     Also counts contact and outbound clicks as events: email-copy, email-click, out/<host>. */}}
+{{ with site.Params.goatcounter }}{{ if hugo.IsProduction }}
+<script data-goatcounter="https://{{ . }}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+  document.addEventListener('click', (e) => {
+    const gc = window.goatcounter;
+    if (!gc || !gc.count) return;
+    let path;
+    if (e.target.closest('.copy')) path = 'email-copy';
+    else {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      if (a.protocol === 'mailto:') path = 'email-click';
+      else if (a.host && a.host !== location.host) path = 'out/' + a.host;
+    }
+    if (path) gc.count({ path, title: location.pathname, event: true });
+  });
+</script>
+{{ end }}{{ end }}

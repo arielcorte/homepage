@@ -16,6 +16,8 @@ disableKinds = ["taxonomy", "term"]
   # signoff = ""
   # Optional; adds an Email link next to GitHub and X.
   email = "ariel@arielcorte.com"
+  # GoatCounter site code (CODE.goatcounter.com) for visit counts. Remove to turn analytics off.
+  goatcounter = "arielcorte"
 
   # Optional label/value list under your photo on the home page, above the links. Add your own:
   # [[params.colophon]]
