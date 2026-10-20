@@ -1,6 +1,6 @@
-{{/* Woodblock banner. Args: scene, title, class. */}}
+{{/* Historical Suzhou woodblock banner. Args: scene, title, class. */}}
 <div class="plate band{{ with .class }} {{ . }}{{ end }}">
-  {{ partial (printf "scenes/%s.html" .scene) . }}
+  {{ partial "prints/suzhou.html" . }}
   <div class="cart">
     <h1>{{ .title }}</h1>
   </div>

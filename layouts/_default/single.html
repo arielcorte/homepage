@@ -12,7 +12,7 @@
 {{ $label := lower $list.Title }}
 {{ with where (partial "sections.html" .) "name" $section }}{{ $label = lower (index . 0).label }}{{ end }}
 
-<div class="plate strip">{{ partial "scenes/strip.html" . }}</div>
+<div class="plate strip">{{ partial "prints/suzhou.html" (dict "scene" "strip") }}</div>
 <article class="post">
   {{ if ne $list site.Home }}<a class="back" href="{{ $list.RelPermalink }}">← All {{ $label }}</a>{{ end }}
   <h1>{{ .Title }}</h1>

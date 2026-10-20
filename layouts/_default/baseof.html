@@ -26,10 +26,9 @@
       <rect width="100%" height="100%" filter="url(#fine)"/>
     </svg>
     {{ partial "header.html" . }}
-    <main class="shell">
+    <main class="shell{{ if .IsHome }} home-page{{ end }}">
       {{ block "main" . }}{{ end }}
     </main>
-    {{ partial "footer.html" . }}
   </div>
   {{/* Copy buttons (the email in the links). Falls back to execCommand where the Clipboard API isn't available. */}}
   <script>

@@ -1,0 +1,11 @@
+{{/* Decorative crops of Westlake Panorama; source and CC0 rights in assets/images/suzhou/README.md. */}}
+{{ $files := dict "home" "westlake-panel-2" "about" "westlake-panel-4" "works" "westlake-panel-1" "writing" "westlake-panel-3" "strip" "westlake-panel-2" }}
+{{ $file := index $files .scene | default "westlake-panel-2" }}
+{{ $original := resources.Get (printf "images/suzhou/%s.jpg" $file) }}
+{{/* Stay inside one printed sheet, excluding the photographed paper edges and plate border. */}}
+{{ $print := $original.Crop "3000x1800 Center" }}
+{{ $image := $print.Fill "2200x650 Center webp q85" }}
+{{ if eq .scene "strip" }}
+  {{ $image = $print.Fill "2200x240 Center webp q85" }}
+{{ end }}
+<img class="suzhou-print" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="" decoding="async">
